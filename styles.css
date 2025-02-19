@@ -1,0 +1,119 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: #141414;
+    margin: 0;
+    transition: background 1.5s;
+    text-align: center;
+  }
+  
+  h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  
+  .num {
+    font-family: 'Roboto', roboto;
+    float: left;
+    font-weight: 900;
+    margin-right: 0.2vw;
+    margin-left: 0.2vw;
+    height: 100%;
+  }
+  
+  .card {
+    height: 9.8vh;
+    padding: 0.1vw;
+    margin: 1px;
+    text-align: left;
+    background: #f4f4f8;
+    border: 0.1em solid #ffffff;
+    transition: margin-top 500ms;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+    max-width: 100%;
+  }
+  
+  .image {
+    height: 9.3vh;
+    width: 9.3vh;
+    float: left;
+    border-radius: 50%;
+    z-index: 10;
+    border: solid 0.1vw #000;
+  }
+  
+  .count {
+    transition: color 2s;
+    font-size: 2.3vw;
+    padding-left: 0.2vw;
+    margin-top: 0;
+  }
+  
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 0.1vw;
+    font-size: 1.5vw;
+    margin-bottom: 0;
+    max-width: 20vw;
+  }
+  
+  .loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -75px 0 0 -75px;
+    border: 16px solid #ffffff;
+    border-radius: 50%;
+    border-top: 16px solid #69db34;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  
+  .card:hover {
+    cursor: pointer;
+    background-color: #bed3f1;
+  }
+  
+  .counters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+  }
+  
+  a {
+    color: #FFF;
+  }
+  
+  @-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+  
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+  
+    100% {
+        transform: rotate(360deg);
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .count {
+        margin-top: -2vw;
+    }
+  }

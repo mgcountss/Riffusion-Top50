@@ -27,8 +27,8 @@ const goToSong = (index) => {
 function updateData(q, data) {
     return setTimeout(function () {
         var cnb = q + 1;
-        if (document.getElementById("img_" + cnb + "").src != 'https://api.riffusion.com/storage/v1/object/public/riffs/'+data.author_id+"/image/"+data.image_id+".jpg") {
-            document.getElementById("img_" + cnb + "").src = 'https://api.riffusion.com/storage/v1/object/public/riffs/'+data.author_id+"/image/"+data.image_id+".jpg";
+        if (document.getElementById("img_" + cnb + "").src != 'https://api.riffusion.com/storage/v1/object/public/riffs/' + data.author_id + "/image/" + data.image_id + ".jpg") {
+            document.getElementById("img_" + cnb + "").src = 'https://api.riffusion.com/storage/v1/object/public/riffs/' + data.author_id + "/image/" + data.image_id + ".jpg";
         }
         $(".channel_" + cnb + " .name").html(data.title);
         $(".channel_" + cnb + " .count").html(Math.floor(data.play_count));
@@ -51,17 +51,31 @@ function updateChannels() {
         headers: {
             "Content-Type": "application/json"
         }
-    }).then(data => data.json()).then(data => {
+    }).then(data => data.json()).then(dataIDs => {
         ids = [];
-        data = data.sort((a, b) => b.play_count - a.play_count);
         for (var q = 0; q < 40; q++) {
-            ids.push(data[q].id);
-            updateData(q, data[q]);
+            ids.push(dataIDs[q].id);
         }
-        if (first) {
-            setTimeout(function () { $('.loader').fadeOut(); $('.counters').fadeIn(1); }, 1)
-            first = false;
-        }
+        fetch("https://wb.riffusion.com/v2/generations", {
+            "headers": {
+                "accept": "*/*",
+                "content-type": "application/json"
+            },
+            "body": JSON.stringify({
+                "riff_ids": ids
+            }),
+            "method": "POST",
+        }).then(data => data.json()).then(data => {
+            data = data.generations;
+            data = data.sort((a, b) => b.play_count - a.play_count);
+            for (var q = 0; q < 40; q++) {
+                updateData(q, data[q]);
+            }
+            if (first) {
+                setTimeout(function () { $('.loader').fadeOut(); $('.counters').fadeIn(1); }, 1)
+                first = false;
+            }
+        });
     });
 };
 updateChannels();
